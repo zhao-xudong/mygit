@@ -1,4 +1,4 @@
-package com.example.zhaoxudong.calculatorapp;
+﻿package com.example.zhaoxudong.calculatorapp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -41,9 +41,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button sign_but;//等号
     private Button spot_but;//小数点
     private Button CE_but;//归零键
-    private Button del_but;
-    private Button sin;
-    private Button cos;
+    private Button DEL;
+    private Button SIN;
+    private Button COS;
     /*
     结果
      */
@@ -85,9 +85,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sign_but = (Button) findViewById(R.id.sign_but);//等号
         spot_but = (Button) findViewById(R.id.spot_but);//小数点
         CE_but = (Button) findViewById(R.id.CE);//归零
-        del_but = (Button) findViewById(R.id.del);
-        sin=(Button) findViewById(R.id.sin);
-        cos=(Button) findViewById(R.id.cos);
+        DEL = (Button) findViewById(R.id.DEL);
+        SIN=(Button) findViewById(R.id.SIN);
+        COS=(Button) findViewById(R.id.COS);
         /*
         结果
          */
@@ -117,8 +117,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         sign_but.setOnClickListener(this);
         spot_but.setOnClickListener(this);
         CE_but.setOnClickListener(this);
-        sin.setOnClickListener(this);
-        cos.setOnClickListener(this);
+        DEL.setOnClickListener(this);
+        SIN.setOnClickListener(this);
+        COS.setOnClickListener(this);
     }
 
     @Override
@@ -150,16 +151,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             /*
             sin
              */
-            case R.id.sin:
+            case R.id.SIN:
                 sinx();
+                break;
                 /*
                 cos
                  */
-            case R.id.cos:
-                if (clear_flag) {
-                    clear_flag=false;
-                    result.setText("");
-                }
+            case R.id.COS:
+                cosx();
+                break;
             case R.id.add_but:
             case R.id.sub_but:
             case R.id.mult_but:
@@ -175,13 +175,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 str="";
                 result.setText("");
                 break;
-            case R.id.del:
-                if (clear_flag) {
-                    clear_flag=false;
-                    str="";
-                    result.setText("");
-                } else if (str != null || str.equals("")) {
-                    result.setText(str.substring(0, str.length() - 1));
+            case R.id.DEL:
+               if (str!=null&&!str.equals("")) {
+                    result.setText(str.substring(0, str.length()-1));
                 }
             case R.id.sign_but:
                 getResult();
@@ -199,11 +195,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         clear_flag=true;
         String exp_2=result.getText().toString();
         double result_2;
-        double e= Double.parseDouble(exp_2);
-        result_2=Math.sin((e/180)*Math.PI);
+        String s1=exp_2.substring(0,exp_2.length());
+        double d1=Double.parseDouble(s1);
+        result_2=Math.sin((d1/180)*Math.PI);
         result.setText(result_2+"");
 
 
+    }
+    /*
+    cosx的运算函数
+     */
+    private void cosx(){
+        clear_flag=true;
+        String exp_3=result.getText().toString();
+        double result_3;
+        String s2=exp_3.substring(0,exp_3.length());
+        double d2=Double.parseDouble(s2);
+        result_3=Math.cos((d2/180)*Math.PI);
+        result.setText(result_3+"");
     }
 
     /*
